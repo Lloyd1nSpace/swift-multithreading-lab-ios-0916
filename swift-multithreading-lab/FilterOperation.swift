@@ -18,7 +18,9 @@ class FilterOperation: Operation {
     }
     
     override func main() {
-        flatigram.image = flatigram.image?.filter(with: filter)
+        if let filteredImage = flatigram.image?.filter(with: filter) {
+            self.flatigram.image = filteredImage
+        }
     }
 
 }
