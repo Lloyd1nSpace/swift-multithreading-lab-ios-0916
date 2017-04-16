@@ -23,7 +23,7 @@ class ImageViewController : UIViewController {
                           "CIPhotoEffectProcess",
                           "CIExposureAdjust"]
     
-//    var flatigram = Flatigram()
+    var flatigram = Flatigram()
     
     @IBOutlet weak var filterButton: UIBarButtonItem!
     @IBOutlet weak var chooseImageButton: UIBarButtonItem!
@@ -39,7 +39,22 @@ class ImageViewController : UIViewController {
     }
     
     @IBAction func filterButtonTapped(_ sender: AnyObject) {
-        
+        filterImage { (filtered) in
+            
+        }
     }
     
+}
+
+extension ImageViewController {
+    func filterImage(with: (Bool) -> ()) {
+        let queue = OperationQueue()
+        queue.name = "Image Filtration Queue"
+        queue.qualityOfService = .userInitiated
+        queue.maxConcurrentOperationCount = 1
+        
+        for filter in filtersToApply {
+               flatigram.image = flatigram.image?.filter(with: filter)
+        }
+    }
 }
